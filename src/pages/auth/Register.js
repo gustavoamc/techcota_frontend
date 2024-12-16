@@ -66,9 +66,11 @@ function Register() {
               text="Senha"
               type="password"
               name="password"
+              placeholder="Digite sua senha..."
               handleOnChange={handleChange}
               required
             />
+        <p className={styles.hint}>- A senha deve conter pelo menos 8 caracteres, uma letra maiúscula, uma letra minúscula, um número e um caractere especial.</p>
         </div>
 
         <div className={styles.formGroup}>
@@ -76,9 +78,13 @@ function Register() {
               text="Confirmação de senha"
               type="password"
               name="confirmPassword"
+              placeholder="Confirme sua senha..."
               handleOnChange={handleChange}
               required
             />
+          {user.password !== user.confirmPassword &&
+            <p className={styles.error}>As senhas não coincidem!</p>
+          }
         </div>
       </div>
 
@@ -213,7 +219,7 @@ function Register() {
         </div>
       </div>
 
-      <input type="submit" value="Cadastrar"/>
+      <input className={styles.submitButton} type="submit" value="Cadastrar"/>
     </form>
   );
 }
