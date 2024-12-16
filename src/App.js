@@ -8,6 +8,8 @@ import Footer from "./components/layout/Footer";
 import Home from "./pages/Home";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
+import Dashboard from "./pages/Dashboard";
+import Settings from "./pages/Settings";
 
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/settings" element={<Settings />} />
           </Routes>
         </Container>
         <Footer />

@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: start;
     align-items: center;
-    height: 100vh;
+    height: 100%;
     text-align: center;
     color: #333;
   }

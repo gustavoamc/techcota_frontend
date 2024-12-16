@@ -3,11 +3,9 @@ import { useNavigate } from "react-router-dom"
 
 import api from "./../api/api"
 
-//TODO: implement flashMessages ?
-
 export default function useAuth() {
     const [authenticated, setAuthenticated] = useState(false)
-    const history = useNavigate()
+    const navigate = useNavigate()
 
     useEffect(() => {
         const token = localStorage.getItem('token')
@@ -32,7 +30,10 @@ export default function useAuth() {
         
     async function register(user) {
         try {
-            const data = await api.post('/user/register', user).then((response) => {
+            const data = await api.post('/user/register', user, {
+                'Content-Type': 'multipart/form-data'
+            })
+            .then((response) => {
                 return response.data
             })
             await authUser(data)
@@ -46,14 +47,14 @@ export default function useAuth() {
         setAuthenticated(false)
         localStorage.removeItem('token')
         api.defaults.headers.Authorization = undefined
-        history.push('/')
+        navigate('/')
     }
 
     async function authUser(data) {
         setAuthenticated(true)
         localStorage.setItem('token', JSON.stringify(data.token))
 
-        history.push('/dashboard')
+        navigate('/dashboard')
     }
 
     return { authenticated, login, logout, register }
