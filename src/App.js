@@ -10,6 +10,7 @@ import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Dashboard from "./pages/Dashboard";
 import Settings from "./pages/Settings";
+import Message from "./components/layout/Message";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
     <Router>
       <UserProvider>
         <Navbar />
+        <Message />
         <Container>
           <Routes>
             <Route path="/" element={<Home />} />

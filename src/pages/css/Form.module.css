@@ -10,14 +10,26 @@
     background-color: #f9f9f9;
   }
 
+.formDoubleCol {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
 .formSingleCol {
-  display: flex; /* Ativa o Flexbox */
-  flex-direction: column; /* Coloca os itens em coluna */
-  justify-content: center; /* Centraliza verticalmente */
-  align-items: center; /* Centraliza horizontalmente */
-  max-width: 450px; /* Reduz a largura máxima */
-  width: 100%; /* Garante que o tamanho se adapte */
-  margin: 0 auto; /* Centraliza horizontalmente */
+  display: flex; /* Activates flexbox */
+  flex-direction: column; /* Puts items in a column */
+  justify-content: center; /* Centralizes verttically */
+  align-items: center; /* Centralizes horizontally */
+  max-width: 450px; /* Max width for the container */
+  width: 100%; /* Ensures the container takes the full width */
+  margin: 0 auto; /* Centers the container horizontally */
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -45,6 +57,13 @@ h3 {
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 1rem;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 2rem 1rem;
   text-align: center;
 }
 
@@ -80,8 +99,21 @@ h3 {
   font-weight: bold;
 }
 
+.formDoubleCol input[type="submit"] {
+  grid-column: span 3;
+  background-color: #4CAF50;
+  color: white;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 2rem;
+  font-weight: bold;
+}
+
 .formSingleCol input[type="submit"] {
-  width: 100%; /* Largura acompanha os inputs */
+  width: 100%; /* Makes the button full width, matching the input's width */
   background-color: #4CAF50;
   color: white;
   padding: 0.8rem;
@@ -93,6 +125,24 @@ h3 {
   font-weight: bold;
 }
 
-.submitButton:hover {
+/* FIXME: isn't working */
+form .submitButton:hover { 
   background-color: #aac9ac;
+}
+
+.preview {
+  width: 150px;
+  height: 150px;
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+.previewGroup {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1rem;
+  justify-content: space-between;
 }

@@ -4,8 +4,8 @@ import styles from '../css/Form.module.css'
 import { Context } from '../../context/UserContext'
 
 import { useContext, useState } from 'react';
+import { Link } from 'react-router-dom'
 
-//TODO: Align this form to the center
 function Login() {
 
 	const [user, setUser] = useState({})
@@ -21,33 +21,39 @@ function Login() {
 	}
 
 	return (
-	<form onSubmit={handleSubmit} className={styles.formSingleCol} id='login'>
-		<div className={styles.section} >
-			<h3>Informações de Login</h3>
-			<div className={styles.formGroup}>
-				<Input
-				text="E-mail"
-				type="email"
-				name="email"
-				placeholder="Digite seu e-mail..."
-				handleOnChange={handleChange}
-				required
-				/>
+	<>
+		<h1>Informações de Login</h1>
+		<form onSubmit={handleSubmit} className={styles.formSingleCol} id='login'>
+			<div className={styles.section} >
+				<div className={styles.formGroup}>
+					<Input
+					text="E-mail"
+					type="email"
+					name="email"
+					placeholder="Digite seu e-mail..."
+					handleOnChange={handleChange}
+					required
+					/>
+				</div>
+
+				<div className={styles.formGroup}>
+					<Input
+					text="Senha"
+					type="password"
+					name="password"
+					placeholder="Digite sua senha..."
+					handleOnChange={handleChange}
+					required
+					/>
+				</div>
+				<input className={styles.submitButton} type="submit" value="Login"/>
 			</div>
 
 			<div className={styles.formGroup}>
-				<Input
-				text="Senha"
-				type="password"
-				name="password"
-				placeholder="Digite sua senha..."
-				handleOnChange={handleChange}
-				required
-				/>
-			</div>
-			<input className={styles.submitButton} type="submit" value="Login"/>
-		</div>
-	</form>
+            	<p className={styles.hint}>Não possui uma conta ? <span><Link to='/register'>Clique aqui</Link></span> e cadastre-se!</p>
+          	</div>
+		</form>
+	</>
 	)
 }
 
