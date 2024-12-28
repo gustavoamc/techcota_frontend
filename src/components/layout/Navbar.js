@@ -27,6 +27,11 @@ function Navbar() {
               </Link>
             </li>
             <li>
+              <Link to="/budget/" className={styles["nav-link"]}>
+                Orçamentos
+              </Link>
+            </li>
+            <li>
               <Link to="/settings" className={styles["nav-link"]}>
                 Configurações
               </Link>

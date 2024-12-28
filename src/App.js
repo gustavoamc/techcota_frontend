@@ -11,6 +11,8 @@ import Register from "./pages/auth/Register";
 import Dashboard from "./pages/Dashboard";
 import Settings from "./pages/Settings";
 import Message from "./components/layout/Message";
+import CreateBudget from "./pages/budget/CreateBudget";
+import Budgets from "./pages/budget/Budgets";
 
 
 function App() {
@@ -26,6 +28,8 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/budget/" element={<Budgets />} />
+            <Route path="/budget/create" element={<CreateBudget />} />
           </Routes>
         </Container>
         <Footer />

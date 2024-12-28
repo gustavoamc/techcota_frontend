@@ -2,9 +2,12 @@
   display: flex;
   justify-content: space-between;
   padding: 0.5em 1.0em;
-  background-color: #363633;
+  background-color: #333;
   width: 100%;
-  position: fix;
+}
+
+.navbar h2{
+  color: #0FF;
 }
 
 .navbar_logo {
