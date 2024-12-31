@@ -3,7 +3,7 @@ import styles from '../css/Budgets.module.css'
 import useFlashMessage from '../../hooks/useFlashMessage'
 
 import { useEffect, useState } from 'react'
-import { MdSearch, MdDateRange, MdOutlineAdd, MdOutlineWysiwyg, MdEdit, MdDelete, MdPictureAsPdf } from "react-icons/md";
+import { MdSearch, MdOutlineAdd, MdOutlineWysiwyg, MdEdit, MdDelete, MdPictureAsPdf } from "react-icons/md";
 import { Link } from 'react-router-dom'
 
 /*TODO: 
@@ -140,8 +140,9 @@ function Budgets() {
 									}
 								</span>
 								<span className={styles.dates}>
-									{new Date(budget.startDate).toLocaleDateString()} -{" "}
-									{new Date(budget.endDate).toLocaleDateString()}
+									{new Date(budget.startDate).toLocaleDateString('pt-BR',{timeZone: 'UTC'})} 
+									{" - "}
+									{new Date(budget.endDate).toLocaleDateString('pt-BR',{timeZone: 'UTC'})}
 								</span>
 								<span className={budget.status === 'waiting' ? styles.waitingStatus : styles.approvedStatus}>
 									{budget.status === 'waiting' ? 'Pendente' : 'Aprovado'}

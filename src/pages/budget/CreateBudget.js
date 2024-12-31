@@ -7,7 +7,6 @@ import api from '../../utils/api';
 import styles from '../css/CreateBudget.module.css';
 import useFlashMessage from '../../hooks/useFlashMessage';
 
-//TODO: prevent user filling fields with negative values
 function CreateBudget() {
   const [token] = useState(localStorage.getItem('token') || '');
   const { setFlashMessage } = useFlashMessage();
@@ -47,7 +46,7 @@ function CreateBudget() {
   });
 
   //get user settings to get service rates
-  //to get each service rate using a "hoursAndValues" map, we use the replace method to remove the 'Hours' from the key name. Lines 162, 171 and 173
+  //to get each service rate using a "hoursAndValues" map, we use the replace method to remove the 'Hours' from the key name. Lines 243, 252 and 254
   useEffect(() => {
     if(token){
       api.get('/user/settings', {
@@ -61,7 +60,7 @@ function CreateBudget() {
         return setFlashMessage(error.response.data.message, 'error')
       })
     } else {
-      setFlashMessage('Erro interno.', 'error')
+      setFlashMessage('Erro ao buscar valores.', 'error')
     }
   }, [token]);
 
@@ -76,6 +75,12 @@ function CreateBudget() {
   
   function handleHoursChange(e){
     const { name, value } = e.target;
+    
+    //prevents negatives values from being typed
+    if(value.includes('-')){
+      return
+    }
+
     setBudgetData((prev) => ({
       ...prev,
       hoursAndValues: {
@@ -107,8 +112,9 @@ function CreateBudget() {
     })
 
     setFlashMessage(data.message, msgType);
+
     if(msgType === 'success'){
-      navigate('/budget/');
+      navigate('/budget');
     }
   }
 
@@ -118,7 +124,7 @@ function CreateBudget() {
   useEffect(() => {
     const { hoursAndValues } = budgetData;
     const total = Object.keys(hoursAndValues).reduce((sum, key) => {
-      const rateKey = `${key.replace('Hours', '')}`;
+      const rateKey = key.replace('Hours', '');
       const rate = serviceRates[rateKey] || 0;
       return sum + hoursAndValues[key] * rate;
     }, 0);
@@ -246,6 +252,7 @@ function CreateBudget() {
                         type="number"
                         name={key}
                         value={budgetData.hoursAndValues[key]}
+                        min={0}
                         onChange={handleHoursChange}
                       />
                     </td>

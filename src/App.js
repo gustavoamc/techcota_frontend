@@ -28,7 +28,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/settings" element={<Settings />} />
-            <Route path="/budget/" element={<Budgets />} />
+            <Route path="/budget" element={<Budgets />} />
             <Route path="/budget/create" element={<CreateBudget />} />
           </Routes>
         </Container>
