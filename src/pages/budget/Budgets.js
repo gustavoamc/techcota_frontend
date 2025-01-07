@@ -10,33 +10,35 @@ import { Link } from 'react-router-dom'
 - change to switch case if more than 2 status
 - change remove confirmation window to modal
 - adapt pdf button when it's ready
-- implement search bar: filtering line 58 and function line 70
-- implement date filtering - line 63
 - implement ordering by clicking on column header
 */
 
-//FIXME: line 130-131 "toLocaleDateString" is using timezone but in the db it's simple dates
+// line 172-174 "toLocaleDateString" is using "UTC" to maintain the original date but adapt to local date format
 
 function Budgets() {
+		const [nonFilteredBudgets, setNonFilteredBudgets] = useState([])
 		const [budgets, setBudgets] = useState([])
 		const [searchTerm, setSearchTerm] = useState('')
 		const [startDateFilter, setstartDateFilter] = useState('')
 		const [endDateFilter, setEndDateFilter] = useState('')
+		const [statusFilter, setStatusFilter] = useState('all')
 		const [token] = useState(localStorage.getItem('token') || '')
 		const { setFlashMessage } = useFlashMessage()
 
 		useEffect(() => {
 			api.get('/budget/all', {
-					headers: {
-							Authorization: `Bearer ${JSON.parse(token)}`
-					}
+				headers: {
+					Authorization: `Bearer ${JSON.parse(token)}`
+				}
 			})
 			.then((response) => {
-					setBudgets(response.data.budgets)
+				setNonFilteredBudgets(response.data.budgets)
+				setBudgets(response.data.budgets)
 			})
 			.catch((error) => {
-					setFlashMessage(error.response.data.message, 'error') //msg type
+				setFlashMessage(error.response.data.message, 'error') //msg type
 			})
+			// eslint-disable-next-line react-hooks/exhaustive-deps
 		}, [])
 
 		// Input/Button handlers
@@ -46,7 +48,8 @@ function Budgets() {
 				let msgType = "success";
 					try {
 						await api.delete(`/budget/${id}`);
-						setBudgets(budgets.filter((budget) => budget._id !== id));
+						setNonFilteredBudgets(budgets.filter((budget) => budget._id !== id));
+						setBudgets(nonFilteredBudgets)
 						setFlashMessage("Registro excluído com sucesso!", msgType);
 					} catch (error) {
 						msgType = "error";
@@ -59,23 +62,49 @@ function Budgets() {
 			console.log(`Gerar PDF para o registro`);
 		};
 
+		//set filters
 		async function handleFiltering(e){
 			const {name, value} = e.target;
 
 			if(name === 'searchTerm'){
-				setSearchTerm(value);
+				setSearchTerm(value.trim());
 			} else if(name === 'startDate'){
 				setstartDateFilter(value);
 			} else if(name === 'endDate'){
 				setEndDateFilter(value);
 			} else if(name === 'status'){
-				console.log(`Filtrar por status: ${name} = ${value}`);
+				setStatusFilter(value);
 			}
 		}
 
-		async function searchBudgets() {
-			console.log(`Buscar orçamentos com o termo: ${searchTerm}`);
+		function searchBudgets() {
+			// \S checks if there is any non-whitespace character
+			if(/\S/.test(searchTerm)) {
+				console.log(`Procurando por ${searchTerm}`);
+				
+				// filtering budgets, not non-filtered budgets, to include possible filters used
+				setBudgets(budgets.filter((budget) => {
+					return budget.generalVision.toLowerCase().includes(searchTerm.toLowerCase()) ||
+					budget.proposal.toLowerCase().includes(searchTerm.toLowerCase())
+				}))
+			} else {
+				applyFilters();
+			}
 		};
+
+		function applyFilters() {
+			setBudgets(nonFilteredBudgets.filter((budget) => {
+				const budgetStartDate = new Date(budget.startDate).toISOString().split("T")[0];
+  				const budgetEndDate = new Date(budget.endDate).toISOString().split("T")[0];
+
+				// check start date (only filter if start date is not empty)
+				return (!startDateFilter || budgetStartDate >= startDateFilter) &&
+				// check end date (only filter if end date is not empty)
+				(!endDateFilter || budgetEndDate <= endDateFilter) &&
+				// check status (only filter if status is not "all")
+				(statusFilter === "all" || budget.status === statusFilter)
+			}));
+		}
 
 		return (
 		<>
@@ -90,7 +119,7 @@ function Budgets() {
 							onChange={handleFiltering}
 							className={styles.searchBar}
 						/>
-						<button className={styles.headerButton} onClick={() => searchBudgets()}>
+						<button className={styles.headerButton} onClick={searchBudgets}>
 							<MdSearch />
 						</button>
 					</div>
@@ -104,17 +133,17 @@ function Budgets() {
 						<input
 							type="date"
 							name="startDate"
-							placeholder="Data inicial"
+							onChange={handleFiltering}
 							className={styles.dateInput}
 						/>
 						à
 						<input
 							type="date"
 							name="endDate"
-							placeholder="Data inicial"
+							onChange={handleFiltering}
 							className={styles.dateInput}
 						/>
-						<button className={styles.headerButton}>
+						<button className={styles.headerButton} onClick={applyFilters}>
 							Aplicar Filtros
 						</button>
 					</div>
@@ -144,8 +173,8 @@ function Budgets() {
 									{" - "}
 									{new Date(budget.endDate).toLocaleDateString('pt-BR',{timeZone: 'UTC'})}
 								</span>
-								<span className={budget.status === 'waiting' ? styles.waitingStatus : styles.approvedStatus}>
-									{budget.status === 'waiting' ? 'Pendente' : 'Aprovado'}
+								<span className={budget.status === 'pending' ? styles.pendingStatus : styles.approvedStatus}>
+									{budget.status === 'pending' ? 'Pendente' : 'Aprovado'}
 								</span>
 								<span className={styles.actions}>
 									<Link to={`/budget/${budget._id}`} className={styles.button}>
