@@ -149,6 +149,7 @@ function CreateBudget() {
     }
   }, [budgetData.startDate, budgetData.endDate, totalCost]);
 
+  //FIXME: last installment is 1 cent less when division results in a repeated decimal
   function calculateInstallments(totalAmount, projectMonths) {
     const minimumInstallment = minInstallmentValue;
     

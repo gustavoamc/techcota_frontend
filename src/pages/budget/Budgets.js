@@ -49,7 +49,7 @@ function Budgets() {
 					try {
 						await api.delete(`/budget/${id}`);
 						setNonFilteredBudgets(budgets.filter((budget) => budget._id !== id));
-						setBudgets(nonFilteredBudgets)
+						setBudgets(budgets.filter((budget) => budget._id !== id))
 						setFlashMessage("Registro excluído com sucesso!", msgType);
 					} catch (error) {
 						msgType = "error";
@@ -82,6 +82,7 @@ function Budgets() {
 			if(/\S/.test(searchTerm)) {
 				console.log(`Procurando por ${searchTerm}`);
 				
+				//FIXME: searches after the first return based o the records of the first search - possible solution: create a budgetsBeforeSearch variable
 				// filtering budgets, not non-filtered budgets, to include possible filters used
 				setBudgets(budgets.filter((budget) => {
 					return budget.generalVision.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -173,8 +174,8 @@ function Budgets() {
 									{" - "}
 									{new Date(budget.endDate).toLocaleDateString('pt-BR',{timeZone: 'UTC'})}
 								</span>
-								<span className={budget.status === 'pending' ? styles.pendingStatus : styles.approvedStatus}>
-									{budget.status === 'pending' ? 'Pendente' : 'Aprovado'}
+								<span className={budget.status === 'approved' ? styles.approvedStatus : styles.pendingStatus}>
+									{budget.status === 'approved' ? 'Aprovado' : 'Pendente'}
 								</span>
 								<span className={styles.actions}>
 									<Link to={`/budget/${budget._id}`} className={styles.button}>
