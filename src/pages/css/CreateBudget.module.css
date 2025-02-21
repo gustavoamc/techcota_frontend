@@ -144,3 +144,17 @@ input[type="date"] {
   display: flex;
   align-items: center;
 }
+
+.dropdownGroup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.dropdownGroup select {
+  padding: 6px;
+  margin: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+}
