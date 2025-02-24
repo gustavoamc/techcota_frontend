@@ -161,8 +161,6 @@ function EditBudget() {
 
     budgetData.ratesUsed = serviceRates;
     budgetData.minInstallmentValue = minInstallmentValue;
-
-    console.log(budgetData);
     
     const data = await api.put(`/budget/${id}`, budgetData, {
       headers: {

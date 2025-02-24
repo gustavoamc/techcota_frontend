@@ -1,4 +1,4 @@
-import  api from '../../utils/api'
+import api from '../../utils/api'
 import styles from '../css/Budgets.module.css'
 import useFlashMessage from '../../hooks/useFlashMessage'
 
@@ -58,8 +58,19 @@ function Budgets() {
 			}
 		};
 
-		async function handleGeneratePDF(){
-			console.log(`Gerar PDF para o registro`);
+		async function handleGeneratePDF(id){
+			api.post(`/budget/generate-pdf/${id}`, {}, { //pdf won't work if it's not a get request or a post request with a body (empty braces) {}
+				headers: {
+					Authorization: `Bearer ${JSON.parse(token)}`
+				},
+				responseType: 'blob',
+			}).then((response) => {
+				const pdfBlob = new Blob([response.data], { type: 'application/pdf' });
+    			const pdfUrl = URL.createObjectURL(pdfBlob);
+				window.open(pdfUrl, '_blank');
+			}).catch((error) => {
+				setFlashMessage(error.response.data.message ?? 'Erro ao buscar', 'error');
+			})
 		};
 
 		//set filters
