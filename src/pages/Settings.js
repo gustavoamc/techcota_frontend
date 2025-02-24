@@ -21,6 +21,7 @@ function Settings() {
       integration: '',
       extra: ''
     },
+    minInstallmentValue: '',
     address: '',
     contactEmail: '',
     contactPhone: '',
@@ -148,18 +149,18 @@ function Settings() {
             />
         </div>
 
-				<div className={styles.previewGroup}>
-					<p style={{fontWeight: 'bold', margin: '5px 0'}}>Logo:</p>
-					{(settings.logo || preview) && (
-            <img src={preview 
-              ? URL.createObjectURL(preview)
-              : `${process.env.REACT_APP_API_URL}/logos/${settings.logo}` //Change to API URL
-            } 
-              alt={settings.companyName}
-              className={styles.preview}
+        <h3>Outros Valores</h3>
+
+        <div className={styles.formGroup}>
+            <Input
+              text="Valor mínimo da parcela"
+              type="number"
+              name="minInstallmentValue"
+              value={settings.minInstallmentValue}
+              handleOnChange={handleChange}
+              required
             />
-          )}
-				</div>
+        </div>
       </div>
 
 			<div className={styles.section}>
@@ -236,7 +237,8 @@ function Settings() {
             />
         </div>
 
-        <div className={styles.formGroup}>
+        <div className={styles.previewGroup}>
+          <div className={styles.formGroup}>
             <Input
               text="Logo da empresa"
               type="file"
@@ -244,6 +246,19 @@ function Settings() {
               handleOnChange={onFileChange}
             />
         </div>
+					
+					{(settings.logo || preview) && (
+            <img src={preview 
+              ? URL.createObjectURL(preview)
+              : `${process.env.REACT_APP_API_URL}/logos/${settings.logo}` //Change to API URL
+            } 
+              alt={settings.companyName}
+              className={styles.preview}
+            />
+          )}
+				</div>
+
+        
       </div>		
 
       <input className={styles.submitButton} type="submit" value="Atualizar Dados"/>
