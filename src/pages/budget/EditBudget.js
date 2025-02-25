@@ -82,10 +82,10 @@ function EditBudget() {
           Authorization: `Bearer ${JSON.parse(token)}`
         }
       }).then((response) => {
-        setBudgetData(formatBudget(response.data.budget))
+        setBudgetData(formatBudget(response.data))
         setOriginalParams({
-          serviceRates: response.data.budget.ratesUsed,
-          minInstallmentValue: response.data.budget.minInstallmentValue
+          serviceRates: response.data.ratesUsed,
+          minInstallmentValue: response.data.minInstallmentValue
         })
       }).catch((error) => {
         return setFlashMessage(error.response.data.message, 'error')

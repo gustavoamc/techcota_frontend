@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom'
 - implement ordering by clicking on column header
 */
 
-// line 172-174 "toLocaleDateString" is using "UTC" to maintain the original date but adapt to local date format
+// line 184-186 "toLocaleDateString" is using "UTC" to maintain the original date but adapt to local date format
 
 function Budgets() {
 		const [nonFilteredBudgets, setNonFilteredBudgets] = useState([])
@@ -91,7 +91,6 @@ function Budgets() {
 		function searchBudgets() {
 			// \S checks if there is any non-whitespace character
 			if(/\S/.test(searchTerm)) {
-				console.log(`Procurando por ${searchTerm}`);
 				
 				//FIXME: searches after the first return based o the records of the first search - possible solution: create a budgetsBeforeSearch variable
 				// filtering budgets, not non-filtered budgets, to include possible filters used
