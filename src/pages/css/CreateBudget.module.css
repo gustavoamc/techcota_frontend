@@ -158,3 +158,37 @@ input[type="date"] {
   font-size: 16px;
   border: 1px solid #ccc;
 }
+
+.headerRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 0 30% 0;
+}
+
+.pendingStatusHeader {
+  font-weight: bold;
+  background-color: #fbff00;
+  padding: 8px 25px;
+}
+
+.approvedStatusHeader {
+  font-weight: bold;
+  font-size: x-large;
+  background-color: #00DF00;
+  padding: 4px 72px;
+}
+
+.fieldGroup {
+  margin-bottom: 3%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fieldGroup p {
+  all: unset;
+  font-size: 16px;
+}

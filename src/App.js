@@ -13,6 +13,7 @@ import Settings from "./pages/Settings";
 import Message from "./components/layout/Message";
 import CreateBudget from "./pages/budget/CreateBudget";
 import EditBudget from "./pages/budget/EditBudget";
+import ViewBudget from "./pages/budget/ViewBudget";
 import Budgets from "./pages/budget/Budgets";
 
 
@@ -32,6 +33,7 @@ function App() {
             <Route path="/budget" element={<Budgets />} />
             <Route path="/budget/create" element={<CreateBudget />} />
             <Route path="/budget/edit/:id" element={<EditBudget />} />
+            <Route path="/budget/:id" element={<ViewBudget />} />
           </Routes>
         </Container>
         <Footer />
