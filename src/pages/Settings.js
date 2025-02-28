@@ -41,7 +41,7 @@ function Settings() {
       }).then((response) => {
           setSettings(response.data)
       }).catch((error) => {
-          return setFlashMessage(msgType, error.response.data.message)
+          return setFlashMessage(error.response.data.message ?? 'Erro ao buscar dados', msgType)
       })
     }, [token])
 

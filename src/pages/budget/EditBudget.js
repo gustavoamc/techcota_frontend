@@ -181,7 +181,7 @@ function EditBudget() {
   }
 
   function handleParamUsage(e){
-    const { name, value } = e.target;
+    const { value } = e.target;
     
     setUseOriginalParams(value);
   }
@@ -371,7 +371,7 @@ function EditBudget() {
               <div className={styles.buttonIcon}><MdCancel /></div>
             </Link>
             <button type='submit' className={styles.approveSubmitButton}>
-              Criar Orçamento
+              Atualizar Orçamento
               <div className={styles.buttonIcon}><MdCheckBox /></div>
             </button>
           </div>

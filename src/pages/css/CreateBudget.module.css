@@ -116,6 +116,11 @@ input[type="date"] {
   background-color: #27ae60;
 }
 
+.fieldGroup label, .formGroup label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  font-size: 24px;
+}
 
 .buttonIcon {
   display: flex;

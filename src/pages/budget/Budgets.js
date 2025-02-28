@@ -36,7 +36,7 @@ function Budgets() {
 				setBudgets(response.data.budgets)
 			})
 			.catch((error) => {
-				setFlashMessage(error.response.data.message, 'error') //msg type
+				setFlashMessage(error.response.data.message  ?? 'Erro ao buscar dados', 'error') //msg type
 			})
 			// eslint-disable-next-line react-hooks/exhaustive-deps
 		}, [])

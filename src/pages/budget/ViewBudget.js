@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { MdCancel, MdPictureAsPdf } from "react-icons/md";
+import { Link, useParams } from 'react-router-dom';
+import { MdArrowBack, MdPictureAsPdf } from "react-icons/md";
 
 import api from '../../utils/api';
 import styles from '../css/CreateBudget.module.css';
@@ -9,7 +9,6 @@ import useFlashMessage from '../../hooks/useFlashMessage';
 function ViewbudgetData() {
     const [token] = useState(localStorage.getItem('token') || '');
     const { setFlashMessage } = useFlashMessage();
-    const navigate = useNavigate();
     const { id } = useParams();
     const [budgetData, setBudgetData] = useState({
         generalVision: '',
@@ -53,7 +52,6 @@ function ViewbudgetData() {
         integration: 'Integração',
         extra: 'Extra'
     }
-    let alreadyFetched = false;
 
     useEffect(() => {
         if(token) {
@@ -178,7 +176,7 @@ function ViewbudgetData() {
                 <div className={styles.submitButtons}>
                     <Link to='/budget' className={styles.cancelSubmitButton}>
                         Retornar
-                        <div className={styles.buttonIcon}><MdCancel /></div>
+                        <div className={styles.buttonIcon}><MdArrowBack /></div>
                     </Link>
                     <button type='button' className={styles.approveSubmitButton} onClick={() => handleGeneratePDF(id)}>
                         Gerar PDF
