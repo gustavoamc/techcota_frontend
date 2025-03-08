@@ -1,0 +1,46 @@
+.mainDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.chartContainer {
+    width: 50%;
+    height: 50%;
+    background-color: #fff;
+    margin: 8px;
+}
+
+.subMainContainer, .buttonsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.totalContainerTitle {
+    font-size: xx-large;
+    color: #000;
+}
+
+.totalCounterContainer {
+    display: flex;
+    flex-direction: column;
+    border: 2px #000 solid;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+}
+
+.approvedContainer {
+    font-weight: bold;
+    background-color: #00DF00;
+}
+
+.pendingContainer {
+    font-weight: bold;
+    background-color: #fbff00;
+}
+
+.buttonsContainer {
+    gap: 10px
+}

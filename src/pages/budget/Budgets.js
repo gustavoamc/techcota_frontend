@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom'
 /*TODO: 
 - change to switch case if more than 2 status
 - change remove confirmation window to modal
-- adapt pdf button when it's ready
 - implement ordering by clicking on column header
 */
 
